@@ -1,13 +1,13 @@
 from django.db.models import Q
-from rest_framework import status
+from rest_framework import status, views
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from movies.models import *
 from movies.permissions import IsAuthorPermission
 from movies.serializers import *
+from rest_framework.parsers import JSONParser, FileUploadParser
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 # class PermissionMixin:
