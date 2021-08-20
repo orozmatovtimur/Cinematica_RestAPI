@@ -22,10 +22,12 @@ schema_view = get_schema_view(
    permission_classes=(permissions.AllowAny,),
 )
 router = DefaultRouter()
+router.register('genre', GenreViewSet)
 router.register('movie', MovieViewSet)
 router.register('actor', ActorViewSet)
 router.register('review', ReviewViewSet)
 router.register('rating', RatingViewSet)
+router.register('like', LikeViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

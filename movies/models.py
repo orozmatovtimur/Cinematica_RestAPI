@@ -24,13 +24,13 @@ class Actor(models.Model):
 
 
 class Movie(models.Model):
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='author', default='')
     name = models.CharField(max_length=500)
+    slug = models.SlugField(primary_key=True, default='')
     imdb_score = models.FloatField()
     popularity = models.FloatField()
-    # rating = models.ForeignKey('movies.Rating', on_delete=models.CASCADE, related_name='rating')
     director = models.CharField(max_length=500)
     actor = models.ForeignKey(Actor, on_delete=models.CASCADE, related_name='actor', default='')
-    # actor = models.ManyToManyField(Actor, related_name="film_actor", default=None)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='movies')
     trailer = models.CharField(max_length=500)
     image = models.ImageField(upload_to='images')
@@ -41,7 +41,7 @@ class Movie(models.Model):
 
 class Review(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='reviews')
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user')
     comment = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
@@ -62,6 +62,11 @@ class Rating(models.Model):
 
     def __str__(self):
         return f'{self.value}'
+
+
+class Like(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='likes')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='likes')
 
 
 
